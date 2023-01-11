@@ -41,6 +41,8 @@
       <tr>
         <th colspan="6">
           <%= f.submit "Filter Students List"%>
+          
+          <span><%= button_to "New quiz", new_quiz_path(), :method => :get %></span>
           <% end %>
         </th>
       </tr>
