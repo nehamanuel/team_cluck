@@ -78,6 +78,7 @@ class QuizzesController < ApplicationController
           recentQ = Quiz.select(:id).where(teacher:current_user.email, course_id:@quiz.course_id, completed:true).order(updated_at: :desc).limit(2).pluck(:id)
 
           topMissed = Qroster.from(Qroster.where(quiz_id:recentQ).order(attempts: :desc)).select(:student_id).distinct.limit(10).pluck(:student_id)
+          # topMissed = Qroster.from(Qroster.where(quiz_id:recentQ).order(attempts: :desc)).select(:student_id).distinct.pluck(:student_id)
           cnt = 0
           topMissed.each do |stud|
             cnt = cnt + 1
@@ -86,10 +87,10 @@ class QuizzesController < ApplicationController
 
           xCnt = 15 - cnt
 
-          extra = Student.where(teacher: current_user.email, id: StudentCourse.where(course_id:@quiz.course_id).pluck(:student_id)).where.not(id:topMissed).shuffle.slice(0,xCnt)
-          extra.each do |stud|
-            Qroster.create(quiz_id:@quiz.id,student_id:stud.id)
-          end
+          # extra = Student.where(teacher: current_user.email, id: StudentCourse.where(course_id:@quiz.course_id).pluck(:student_id)).where.not(id:topMissed).shuffle.slice(0,xCnt)
+          # extra.each do |stud|
+          #   Qroster.create(quiz_id:@quiz.id,student_id:stud.id)
+          # end
         else
           StudentCourse.where(course_id:@quiz.course_id).each do |student_course|
             Qroster.create(quiz_id:@quiz.id,student_id:student_course.student_id)
