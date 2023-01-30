@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  passwordless_for :users
+  resources :users
+  root to:"static#index"
+
   post 'upload/index', to: 'upload#parse'
   get 'upload/index', to: 'upload#index'
 
@@ -22,7 +27,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
 
-  root 'home#index'
+  #root 'home#index'
+  
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
