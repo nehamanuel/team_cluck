@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
   def index
     @id = current_user.email
+    @dueStudents = Student.getDue(@id)
   end
 
   def stripYear(var)
@@ -230,4 +231,20 @@ class HomeController < ApplicationController
     return [bStud, bestInfo, wStud, worstInfo, hStud, highestInfo, lStud, lowestInfo]
   end
   helper_method :studentInfo
+
+  def getNumDue()
+    return @dueStudents.length
+  end
+  helper_method :getNumDue
+
+  def getDueStudentQuiz()
+    path = ""
+    if @dueStudents.length > 0
+      student = @dueStudents.sample
+      return quiz_students_path(student)
+    else
+      return "/"
+    end
+  end
+  helper_method :getDueStudentQuiz
 end
