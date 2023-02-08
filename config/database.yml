@@ -3,7 +3,7 @@ production:
   # host: student-knowledge-system.herokuapp.com
 
 development:
-  adapter: postgresql # should be sqlite3, but get foreign key error, will fix in next iteration
+  adapter: sqlite3 # should be sqlite3, but get foreign key error, will fix in next iteration
   encoding: unicode
   database: courses
   username: postgres
@@ -12,7 +12,7 @@ development:
   pool: 5
 
 test:
-  adapter: postgresql
+  adapter: sqlite3
   encoding: unicode
   database: courses
   username: postgres
